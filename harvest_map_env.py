@@ -7,7 +7,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 from ray.rllib.env.multi_agent_env import MultiAgentEnv
 import utility_funcs as utils
-from gym.envs.classic_control import rendering
 
 from collections import defaultdict
 import cv2
@@ -813,6 +812,7 @@ class HarvestMap (MultiAgentEnv):
         im = rgb_arr
 
         if mode == 'human':
+            from gym.envs.classic_control import rendering
             if self.viewer is None:
                 self.viewer = rendering.SimpleImageViewer(maxwidth=500)
             scale = im.shape[0] / im.shape[1]
