@@ -16,16 +16,16 @@ class Reinforce:
 
         ray.shutdown()
         ray.init(include_dashboard=False, ignore_reinit_error=True)
-        if env:
-            register_env(env_name, lambda config: env(num_agents))
-            # gym.envs.register(
-            #     id=env_name,
-            #     entry_point=env(num_agents))
 
         self.folder_name = folder_name
         self.check_point_default_path = self.folder_name+"/model_checkpoint.pkl"
 
         self.config = self.config_rllib(config)
+        if env:
+            register_env(env_name, lambda config: env(num_agents))
+            # gym.envs.register(
+            #     id=env_name,
+            #     entry_point=env(num_agents))
 
         self.agent = trainer(config=config, env=env_name)
 
@@ -65,7 +65,7 @@ class Reinforce:
             ))
         return self.agent
 
-    def run_policy(self, n_step):
+    def run_policy(self, n_step, render_mode):
         env = self.env
         obs = env.reset()
         sum_reward = 0
@@ -77,7 +77,7 @@ class Reinforce:
                     agent_id)
                 actions[agent_id] = self.agent.compute_action(
                     agent_obs, policy_id=policy_id)
-            env.render()
+            env.render(render_mode)
             obs, reward, done, info = env.step(actions)
             done = done['__all__']
             # sum up reward for all agents
