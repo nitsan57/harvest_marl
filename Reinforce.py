@@ -9,17 +9,18 @@ import numpy as np
 
 class Reinforce:
     def __init__(self, folder_name, trainer, config, env_name, num_agents=1, env=None):
-        if env:
-            register_env(env_name, lambda config: env(num_agents))
-            # gym.envs.register(
-            #     id=env_name,
-            #     entry_point=env(num_agents))
+
         self.num_agents = num_agents
         self.env_name = env_name
         self.env = env(num_agents)
 
         ray.shutdown()
         ray.init(include_dashboard=False, ignore_reinit_error=True)
+        if env:
+            register_env(env_name, lambda config: env(num_agents))
+            # gym.envs.register(
+            #     id=env_name,
+            #     entry_point=env(num_agents))
 
         self.folder_name = folder_name
         self.check_point_default_path = self.folder_name+"/model_checkpoint.pkl"
