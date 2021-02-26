@@ -1,3 +1,6 @@
+import cv2
+from collections import defaultdict
+import utility_funcs as utils
 import gym
 from gym.utils import seeding
 
@@ -10,10 +13,6 @@ import os
 import sys
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
-import utility_funcs as utils
-
-from collections import defaultdict
-import cv2
 HARVEST_DEFAULT_VIEW_SIZE = 5
 TIMEOUT_TIME = 25
 
@@ -832,4 +831,5 @@ class HarvestMap (MultiAgentEnv):
         Environments will automatically close() themselves when
         garbage collected or when the program exits.
         """
-        self.viewer.close()
+        if self.viewer:
+            self.viewer.close()
