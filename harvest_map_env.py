@@ -1,5 +1,7 @@
 import cv2
 from collections import defaultdict
+import sys
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 import utility_funcs as utils
 import gym
 from gym.utils import seeding
@@ -10,8 +12,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from ray.rllib.env.multi_agent_env import MultiAgentEnv
 import os
-import sys
-sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+
 
 HARVEST_DEFAULT_VIEW_SIZE = 5
 TIMEOUT_TIME = 25
